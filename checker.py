@@ -49,7 +49,7 @@ class FilterCPF:
             
     def validateAlgorithm(self, cpf):
         # 10, 9, 8, 7, 6, 5, 4, 3, 2
-        multiplication_interator = 2
+        multiplication_iterator = 2
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
         cpf_without_chars = self.CPFWithoutChars(cpf)
@@ -59,23 +59,21 @@ class FilterCPF:
                 digit = int(char)
                 # jumps the 2 verification digits, which has the 0 and 1 indexes
                 if counter > 1:
-                    sum_result = sum_result + (digit * multiplication_interator)
-                    multiplication_interator += multiplication_interator
+                    sum_result = sum_result + (digit * multiplication_iterator)
+                    multiplication_iterator += multiplication_iterator
 
-            if sum_result % 11 < 2 and str(cpf_without_chars[9] != 0) \
-            or sum_result % 11 >= 2 and str(cpf_without_chars[9] != (11 -(sum_result % 11))):
-                print(bcolors.FAIL + "[-] The first CPF's verification digit is invalid.")
+            if sum_result % 11 < 2 and str(cpf_without_chars[9] == 0) \
+            or sum_result % 11 >= 2 and str(cpf_without_chars[9] == (11 -(sum_result % 11))):
+                print(bcolors.OKGREEN + "[+] Ok! First digit from " + cpf_without_chars +" is valid.")
                 # exit()
+                return True
+            else: 
+                print(bcolors.FAIL + "[-] The first CPF's verification digit is invalid.")
                 return False
 
-    def isValid(self):
+    def main(self):
         for cpf in self.io_obj.inputFile("cpf_list.txt"):
-            if self.hasNumbersOnly and self.hasElevenDigits:
-                print(bcolors.OKGREEN + "[+] CPF " + str(cpf.strip) + " has numbers only and eleven digits.")
                 self.validateAlgorithm(cpf)
-            else:
-                print(bcolors.FAIL + "[-] " + cpf + " is not valid. It has characters or more/less than 11 digits.")
-                exit()
 
 obj = FilterCPF()
-obj.isValid()
+obj.main()
