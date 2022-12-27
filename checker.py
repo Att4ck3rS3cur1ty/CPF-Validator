@@ -38,6 +38,7 @@ class FilterCPF:
         filtered_cpf = ""
         for char in cpf:
             filtered_cpf += filtered_cpf.join(char.replace(".", "").replace("-", "")) # criar lista mesmo?
+        filtered_cpf = filtered_cpf.strip()
         return filtered_cpf
 
     def hasNumbersOnly(self, cpf):
@@ -45,33 +46,35 @@ class FilterCPF:
 
     def hasElevenDigits(self, cpf):
         if len(self.CPFWithoutChars(cpf)) == 11: return True
-
+            
     def validateAlgorithm(self, cpf):
         # 10, 9, 8, 7, 6, 5, 4, 3, 2
         multiplication_interator = 2
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
-
-        for counter, char in enumerate(str(self.CPFWithoutChars(cpf))[::-1]):
-            if char is not "\n": digit = int(char)
-            # jumps the 2 verification digits, which has the 0 and 1 indexes
-            if counter > 1:
-                sum_result = sum_result + (digit * multiplication_interator)
-                multiplication_interator += multiplication_interator
+        cpf_without_chars = self.CPFWithoutChars(cpf)
         
-        if sum_result % 11 < 2 and str(self.CPFWithoutChars(cpf)[10] != 0) \
-        or sum_result % 11 >= 2 and str(self.CPFWithoutChars(cpf)[10] != (11 - sum_result % 11)):
-            print(bcolors.FAIL + "[-] The first CPF'S verification digit is invalid. \nExiting.. ")
-            # exit()
-            return False
+        if self.hasNumbersOnly(cpf_without_chars) and self.hasElevenDigits(cpf_without_chars):
+            for counter, char in enumerate(str(cpf_without_chars)[::-1]):
+                digit = int(char)
+                # jumps the 2 verification digits, which has the 0 and 1 indexes
+                if counter > 1:
+                    sum_result = sum_result + (digit * multiplication_interator)
+                    multiplication_interator += multiplication_interator
+
+            if sum_result % 11 < 2 and str(cpf_without_chars[9] != 0) \
+            or sum_result % 11 >= 2 and str(cpf_without_chars[9] != (11 -(sum_result % 11))):
+                print(bcolors.FAIL + "[-] The first CPF's verification digit is invalid.")
+                # exit()
+                return False
 
     def isValid(self):
         for cpf in self.io_obj.inputFile("cpf_list.txt"):
             if self.hasNumbersOnly and self.hasElevenDigits:
-                print(bcolors.OKGREEN + "[+] CPF " + str(cpf.strip) + " has numbers only and eleven digits. Continuing!")
+                print(bcolors.OKGREEN + "[+] CPF " + str(cpf.strip) + " has numbers only and eleven digits.")
                 self.validateAlgorithm(cpf)
             else:
-                print(bcolors.FAIL + "[-] " + cpf + " is not valid. It has characters or more/less than 11 digits. \nExiting...")
+                print(bcolors.FAIL + "[-] " + cpf + " is not valid. It has characters or more/less than 11 digits.")
                 exit()
 
 obj = FilterCPF()
