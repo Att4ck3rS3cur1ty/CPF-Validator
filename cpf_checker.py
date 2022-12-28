@@ -34,9 +34,9 @@ class IOchecker:
         try:
             # with open(path, "r") as i_file:
             #    return i_file
-            i_file = open(path, "r")
-        except Exception as e:
-            print(Messages.FAILED_OPEN_FILE + e)
+            i_file = open(path, "r", "utf-8")
+        except Exception as exception:
+            print(Messages.FAILED_OPEN_FILE + exception)
         # finally:
         #    i_file.close()
         return i_file
@@ -46,10 +46,10 @@ class IOchecker:
         try:
             # with open(path, "w") as o_file:
             #    return o_file
-            o_file = open(path, "w")
+            o_file = open(path, "w", "utf-8")
             o_file.write(content)
-        except Exception as e:
-            print(Messages.FAILED_OPEN_FILE + e)
+        except Exception as exception:
+            print(Messages.FAILED_OPEN_FILE + exception)
         return o_file
 
 class FilterCPF:
