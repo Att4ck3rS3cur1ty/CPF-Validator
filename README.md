@@ -13,4 +13,8 @@ Check whether CPFs are valid from a given input list
 - Run the script: ```$ python3 cpf_checker.py ```
 - The output containing the filtered CPF's will be automatically written as "output_valid_cpfs.txt".
 
+### Disclaimer:
+
+This tool is not meant to promote or encourage any illegal activities, but to promote education and help for the infosec community.
+
 #### - J0hn Kr4m3r.
