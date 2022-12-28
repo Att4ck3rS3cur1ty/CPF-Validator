@@ -1,23 +1,23 @@
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
+class BColors:
+    header = '\033[95m'
+    ok_blue = '\033[94m'
+    ok_green = '\033[92m'
+    warning = '\033[93m'
+    fail = '\033[91m'
+    endc = '\033[0m'
 
     def disable(self):
-        self.HEADER = ''
-        self.OKBLUE = ''
-        self.OKGREEN = ''
-        self.WARNING = ''
-        self.FAIL = ''
-        self.ENDC = ''
+        self.header = ''
+        self.ok_blue = ''
+        self.ok_green = ''
+        self.warning = ''
+        self.fail = ''
+        self.endc = ''
 
 class Messages:
-    VALID = bcolors.OKGREEN + "[+] Valid CPF: "
-    INVALID = bcolors.FAIL + "[-] Invalid CPF: "
-    FAILED_OPEN_FILE = bcolors.FAIL + \
+    VALID = BColors.ok_green + "[+] Valid CPF: "
+    INVALID = BColors.fail + "[-] Invalid CPF: "
+    FAILED_OPEN_FILE = BColors.fail + \
         "[E] Error while handling the file! \
         Check if you have the right permissions \
         to write in disk or if the file exists: \n"
@@ -27,7 +27,7 @@ class IOchecker:
     def __init__(self, path):
         self.path = path
 
-    # reads the input CPF list file 
+    # reads the input CPF list file
     def inputFile(self, path):
         #with open(path, "r") as iFile:
         #    return iFile
@@ -73,7 +73,7 @@ class FilterCPF:
         sum_result = 0
         # Call the method to clean the CPF string and stores the returns value on cpf_without_chars
         cpf_without_chars = self.CPFWithoutChars(cpf)
-        
+
         if self.hasNumbersOnly(cpf_without_chars) and self.hasElevenDigits(cpf_without_chars):
             for counter, char in enumerate(str(cpf_without_chars)[::-1]):
                 digit = int(char)
@@ -87,7 +87,7 @@ class FilterCPF:
                 return True
             else:
                 return False
-            
+
     def verifySecondDigit(self, cpf):
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
@@ -95,7 +95,7 @@ class FilterCPF:
         cpf_without_chars = self.CPFWithoutChars(cpf)
         # 10, 9, 8, 7, 6, 5, 4, 3, 2
         multiplication_iterator = 2
-        
+
         if self.hasNumbersOnly(cpf_without_chars) and self.hasElevenDigits(cpf_without_chars):
             for counter, char in enumerate(str(cpf_without_chars)[::-1]):
                 digit = int(char)
@@ -120,7 +120,7 @@ class FilterCPF:
 
     def main(self):
         for cpf in self.io_obj.inputFile("cpf_list.txt"):
-                self.validateAlgorithm(cpf)
+            self.validateAlgorithm(cpf)
 
 obj = FilterCPF()
 obj.main()
