@@ -84,12 +84,13 @@ class FilterCPF:
                 if counter > 1:
                     sum_result = sum_result + (digit * counter)
                     return True
-
             if sum_result % 11 < 2 and int(cpf_without_chars[9]) == 0:
                 return True
             if sum_result % 11 >= 2 and int(cpf_without_chars[9]) == (11 -(sum_result % 11)):
                 return True
-            return False
+            else:
+                return False
+        return False
 
     def verify_second_digit(self, cpf):
         '''based on the CPF algorithm, it verifies the 2st verification digit'''
@@ -110,10 +111,11 @@ class FilterCPF:
 
             if sum_result % 11 < 2 and int(cpf_without_chars[10]) == 0:
                 return True
-            elif sum_result % 11 >= 2 and int(cpf_without_chars[10]) == (11 -(sum_result % 11)):
+            if sum_result % 11 >= 2 and int(cpf_without_chars[10]) == (11 -(sum_result % 11)):
                 return True
             else:
                 return False
+        return False
 
     def validate_algorithm(self, cpf):
         '''call both 1st and 2st verification digits methods'''
