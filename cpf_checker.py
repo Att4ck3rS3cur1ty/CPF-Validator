@@ -90,8 +90,6 @@ class FilterCPF:
                 return True
             if sum_result % 11 >= 2 and int(cpf_without_chars[9]) == (11 -(sum_result % 11)):
                 return True
-            else:
-                return False
         return False
 
     def verify_second_digit(self, cpf):
@@ -115,8 +113,6 @@ class FilterCPF:
                 return True
             if sum_result % 11 >= 2 and int(cpf_without_chars[10]) == (11 -(sum_result % 11)):
                 return True
-            else:
-                return False
         return False
 
     def validate_algorithm(self, cpf):
