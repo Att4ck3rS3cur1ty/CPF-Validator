@@ -62,19 +62,19 @@ class FilterCPF:
             filtered_cpf += filtered_cpf.join(char.replace(".", "").replace("-", ""))
         return filtered_cpf
 
-    def hasNumbersOnly(self, cpf):
+    def has_numbers_only(self, cpf):
         if self.cpf_without_chars(cpf).isdigit(): return True
 
-    def hasElevenDigits(self, cpf):
+    def has_eleven_digits(self, cpf):
         if len(self.cpf_without_chars(cpf)) == 11: return True
 
-    def verifyFirstDigit(self, cpf):
+    def verify_first_digit(self, cpf):
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
         # Call the method to clean the CPF string and stores the returns value on cpf_without_chars
         cpf_without_chars = self.cpf_without_chars(cpf)
 
-        if self.hasNumbersOnly(cpf_without_chars) and self.hasElevenDigits(cpf_without_chars):
+        if self.has_numbers_only(cpf_without_chars) and self.has_eleven_digits(cpf_without_chars):
             for counter, char in enumerate(str(cpf_without_chars)[::-1]):
                 digit = int(char)
                 # jumps the 2 verification digits, which has the 0 and 1 indexers
@@ -88,7 +88,7 @@ class FilterCPF:
             else:
                 return False
 
-    def verifySecondDigit(self, cpf):
+    def verify_second_digit(self, cpf):
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
         # Call the method to clean the CPF string and stores the returns value on cpf_without_chars
@@ -96,7 +96,7 @@ class FilterCPF:
         # 10, 9, 8, 7, 6, 5, 4, 3, 2
         multiplication_iterator = 2
 
-        if self.hasNumbersOnly(cpf_without_chars) and self.hasElevenDigits(cpf_without_chars):
+        if self.has_numbers_only(cpf_without_chars) and self.has_eleven_digits(cpf_without_chars):
             for counter, char in enumerate(str(cpf_without_chars)[::-1]):
                 digit = int(char)
                 # jumps the 1st verification digit, which has the 0 indexer
@@ -112,7 +112,7 @@ class FilterCPF:
                 return False
 
     def validateAlgorithm(self, cpf):
-        if self.verifyFirstDigit(cpf) and self.verifySecondDigit(cpf):
+        if self.verify_first_digit(cpf) and self.verify_second_digit(cpf):
             print(Messages.VALID + str(cpf))
             self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
         else:
