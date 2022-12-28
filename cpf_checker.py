@@ -9,6 +9,7 @@ class BColors:
     endc = '\033[0m'
 
     def disable(self):
+        '''method used to disable the colors'''
         self.header = ''
         self.ok_blue = ''
         self.ok_green = ''
