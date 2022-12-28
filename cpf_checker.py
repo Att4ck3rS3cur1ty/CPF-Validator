@@ -28,7 +28,7 @@ class IOchecker:
         self.path = path
 
     # reads the input CPF list file
-    def inputFile(self, path):
+    def input_file(self, path):
         #with open(path, "r") as iFile:
         #    return iFile
         try:
@@ -42,7 +42,7 @@ class IOchecker:
         return iFile
 
     # writes to an external file the valid CPF's
-    def outputFile(self, path, content):
+    def output_file(self, path, content):
         try:
             # with open(path, "w") as oFile:
             #    return oFile
@@ -55,7 +55,7 @@ class IOchecker:
 class FilterCPF:
     io_obj = IOchecker("")
     # removes "." and "-" from the cpf
-    def CPFWithoutChars(self, cpf):
+    def cpf_without_chars(self, cpf):
         cpf = cpf.strip()
         filtered_cpf = ""
         for char in cpf:
@@ -63,16 +63,16 @@ class FilterCPF:
         return filtered_cpf
 
     def hasNumbersOnly(self, cpf):
-        if self.CPFWithoutChars(cpf).isdigit(): return True
+        if self.cpf_without_chars(cpf).isdigit(): return True
 
     def hasElevenDigits(self, cpf):
-        if len(self.CPFWithoutChars(cpf)) == 11: return True
+        if len(self.cpf_without_chars(cpf)) == 11: return True
 
     def verifyFirstDigit(self, cpf):
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
         # Call the method to clean the CPF string and stores the returns value on cpf_without_chars
-        cpf_without_chars = self.CPFWithoutChars(cpf)
+        cpf_without_chars = self.cpf_without_chars(cpf)
 
         if self.hasNumbersOnly(cpf_without_chars) and self.hasElevenDigits(cpf_without_chars):
             for counter, char in enumerate(str(cpf_without_chars)[::-1]):
@@ -92,7 +92,7 @@ class FilterCPF:
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
         # Call the method to clean the CPF string and stores the returns value on cpf_without_chars
-        cpf_without_chars = self.CPFWithoutChars(cpf)
+        cpf_without_chars = self.cpf_without_chars(cpf)
         # 10, 9, 8, 7, 6, 5, 4, 3, 2
         multiplication_iterator = 2
 
@@ -114,12 +114,12 @@ class FilterCPF:
     def validateAlgorithm(self, cpf):
         if self.verifyFirstDigit(cpf) and self.verifySecondDigit(cpf):
             print(Messages.VALID + str(cpf))
-            self.io_obj.outputFile("output_valid_cpfs.txt", str(cpf))
+            self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
         else:
             print(Messages.INVALID + str(cpf))
 
     def main(self):
-        for cpf in self.io_obj.inputFile("cpf_list.txt"):
+        for cpf in self.io_obj.input_file("cpf_list.txt"):
             self.validateAlgorithm(cpf)
 
 obj = FilterCPF()
