@@ -13,9 +13,11 @@ class bcolors:
         self.WARNING = ''
         self.FAIL = ''
         self.ENDC = ''
+        
 class Messages:
     VALID = bcolors.OKGREEN + "[+] Valid CPF: "
     INVALID = bcolors.FAIL + "[-] Invalid CPF: "
+    FAILED_OPEN_FILE = bcolors.FAIL + "[E] Error while handling the file! Check if you have the right permissions to write in disk or if the file exists: \n"
 
 class IOchecker:
     # initiates the variables
@@ -26,13 +28,26 @@ class IOchecker:
     def inputFile(self, path):
         #with open(path, "r") as iFile:
         #    return iFile
-        iFile = open(path)
+        try:
+            # with open(path, "r") as iFile:
+            #    return iFile
+            iFile = open(path, "r")
+        except Exception as e:
+            print(Messages.FAILED_OPEN_FILE + e)
+        # finally:
+        #    iFile.close()
         return iFile
 
     # writes to an external file the valid CPF's
-    def outputFile(self, path):
-        with open(path, "w") as oFile:
-            return oFile
+    def outputFile(self, path, content):
+        try:
+            # with open(path, "w") as oFile:
+            #    return oFile
+            oFile = open(path, "w")
+            oFile.write(content)
+        except Exception as e:
+            print(Messages.FAILED_OPEN_FILE + e)
+        return oFile
 
 class FilterCPF:
     io_obj = IOchecker("")
@@ -106,6 +121,7 @@ class FilterCPF:
     def validateAlgorithm(self, cpf):
         if self.verifyFirstDigit(cpf) and self.verifySecondDigit(cpf):
             print(Messages.VALID + str(cpf))
+            self.io_obj.outputFile("output_valid_cpfs.txt", str(cpf))
         else:
             print(Messages.INVALID + str(cpf))
 
