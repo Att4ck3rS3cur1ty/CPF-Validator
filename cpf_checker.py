@@ -83,6 +83,7 @@ class FilterCPF:
                 # jumps the 2 verification digits, which has the 0 and 1 indexers
                 if counter > 1:
                     sum_result = sum_result + (digit * counter)
+                    return True
 
             if sum_result % 11 < 2 and int(cpf_without_chars[9]) == 0:
                 return True
