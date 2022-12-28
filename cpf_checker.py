@@ -64,11 +64,13 @@ class FilterCPF:
         '''checks if the line contains digits only'''
         if self.cpf_without_chars(cpf).isdigit():
             return True
+        return False
 
     def has_eleven_digits(self, cpf):
         '''verify if the line has 11 digits'''
         if len(self.cpf_without_chars(cpf)) == 11:
             return True
+        return False
 
     def verify_first_digit(self, cpf):
         '''based on the CPF algorithm, it verifies the 1st verification digit'''
