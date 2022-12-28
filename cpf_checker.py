@@ -1,3 +1,4 @@
+'''Module to filter CPFs from a given input file'''
 class BColors:
     '''Used to give colour to the output operation'''
     header = '\033[95m'
