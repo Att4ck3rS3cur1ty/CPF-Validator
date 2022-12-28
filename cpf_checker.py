@@ -27,29 +27,21 @@ class Messages:
 
 class IOchecker:
     '''Responsible for the IO logic'''
-    # initiates the variables
     def __init__(self, path):
+        '''initiates the variables'''
         self.path = path
 
-    # reads the input CPF list file
     def input_file(self, path):
-        #with open(path, "r") as i_file:
-        #    return i_file
+        '''reads the input CPF list file'''
         try:
-            # with open(path, "r") as i_file:
-            #    return i_file
             i_file = open(path, mode="r", encoding="utf-8")
         except Exception as exception:
             print(Messages.FAILED_OPEN_FILE + exception)
-        # finally:
-        #    i_file.close()
         return i_file
 
-    # writes to an external file the valid CPF's
     def output_file(self, path, content):
+        '''writes valid CPF's to an external file'''
         try:
-            # with open(path, "w") as o_file:
-            #    return o_file
             o_file = open(path, mode="w", encoding="utf-8")
             o_file.write(content)
         except Exception as exception:
@@ -59,8 +51,8 @@ class IOchecker:
 class FilterCPF:
     '''Call all the methods used to filter CPF'''
     io_obj = IOchecker("")
-    # removes "." and "-" from the cpf
     def cpf_without_chars(self, cpf):
+        '''removes "." and "-" from the cpf'''
         cpf = cpf.strip()
         filtered_cpf = ""
         for char in cpf:
@@ -68,14 +60,17 @@ class FilterCPF:
         return filtered_cpf
 
     def has_numbers_only(self, cpf):
+        '''checks if the line contains digits only'''
         if self.cpf_without_chars(cpf).isdigit():
             return True
 
     def has_eleven_digits(self, cpf):
+        '''verify if the line has 11 digits'''
         if len(self.cpf_without_chars(cpf)) == 11:
             return True
 
     def verify_first_digit(self, cpf):
+        '''based on the CPF algorithm, it verifies the 1st verification digit'''
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
         # Call the method to clean the CPF string and stores the returns value on cpf_without_chars
@@ -96,6 +91,7 @@ class FilterCPF:
                 return False
 
     def verify_second_digit(self, cpf):
+        '''based on the CPF algorithm, it verifies the 2st verification digit'''
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0
         # Call the method to clean the CPF string and stores the returns value on cpf_without_chars
@@ -119,6 +115,7 @@ class FilterCPF:
                 return False
 
     def validate_algorithm(self, cpf):
+        '''call both 1st and 2st verification digits methods'''
         if self.verify_first_digit(cpf) and self.verify_second_digit(cpf):
             print(Messages.VALID + str(cpf))
             self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
@@ -126,6 +123,7 @@ class FilterCPF:
             print(Messages.INVALID + str(cpf))
 
     def main(self):
+        '''where everything begins'''
         for cpf in self.io_obj.input_file("cpf_list.txt"):
             self.validate_algorithm(cpf)
 
