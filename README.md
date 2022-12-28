@@ -1,5 +1,9 @@
 # CPF-Validator
-Script to check whether CPF's are valid from a given input list
+Check whether CPFs are valid from a given input list
+
+### A **Cute baby bot** to filter valid CPFs from a text file.
+- - -
+[![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/Att4ck3rS3cur1ty/donate)
 
 ## Requirements:
 - Python >= 3.0.0;
