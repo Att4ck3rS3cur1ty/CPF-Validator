@@ -1,7 +1,7 @@
 # CPF-Validator
-Check whether CPFs are valid from a given input list
+Checks whether CPFs are valid from a given input list
 
-### A **Cute baby bot** to filter valid CPFs from a text file.
+### A cute little bot to filter valid CPFs from a text file and save it in an output file.
 
 - - -
 
@@ -18,7 +18,7 @@ Check whether CPFs are valid from a given input list
 - Run the script: ```$ python3 cpf_checker.py ```
 - The output containing the filtered CPF's will be automatically written as "output_valid_cpfs.txt".
 
-### Disclaimer:
+## Disclaimer:
 
 This tool is not meant to promote or encourage any illegal activities, but to promote education and help for the infosec community.
 
