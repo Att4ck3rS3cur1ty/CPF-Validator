@@ -1,4 +1,5 @@
 class BColors:
+    '''Used to give colour to the output operation'''
     header = '\033[95m'
     ok_blue = '\033[94m'
     ok_green = '\033[92m'
@@ -15,6 +16,7 @@ class BColors:
         self.endc = ''
 
 class Messages:
+    '''Messages used to log outputs'''
     VALID = BColors.ok_green + "[+] Valid CPF: "
     INVALID = BColors.fail + "[-] Invalid CPF: "
     FAILED_OPEN_FILE = BColors.fail + \
@@ -23,6 +25,7 @@ class Messages:
         to write in disk or if the file exists: \n"
 
 class IOchecker:
+    '''Responsible for the IO logic'''
     # initiates the variables
     def __init__(self, path):
         self.path = path
@@ -34,7 +37,7 @@ class IOchecker:
         try:
             # with open(path, "r") as i_file:
             #    return i_file
-            i_file = open(path, "r", "utf-8")
+            i_file = open(path, mode="r", encoding="utf-8")
         except Exception as exception:
             print(Messages.FAILED_OPEN_FILE + exception)
         # finally:
@@ -46,13 +49,14 @@ class IOchecker:
         try:
             # with open(path, "w") as o_file:
             #    return o_file
-            o_file = open(path, "w", "utf-8")
+            o_file = open(path, mode="w", encoding="utf-8")
             o_file.write(content)
         except Exception as exception:
             print(Messages.FAILED_OPEN_FILE + exception)
         return o_file
 
 class FilterCPF:
+    '''Call all the methods used to filter CPF'''
     io_obj = IOchecker("")
     # removes "." and "-" from the cpf
     def cpf_without_chars(self, cpf):
