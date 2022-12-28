@@ -31,6 +31,8 @@ class IOchecker:
     def __init__(self, path):
         '''initiates the variables'''
         self.path = path
+        self.first_write = True
+        self.mode = "w"
 
     def input_file(self, path):
         '''reads the input CPF list file'''
@@ -43,8 +45,11 @@ class IOchecker:
     def output_file(self, path, content):
         '''writes valid CPF's to an external file'''
         try:
-            o_file = open(path, mode="w", encoding="utf-8")
+            if not self.first_write:
+                self.mode = "a"
+            o_file = open(path, mode=self.mode, encoding="utf-8")
             o_file.write(content)
+            self.first_write = False
         except Exception as exception:
             print(Messages.FAILED_OPEN_FILE + exception)
         return o_file
