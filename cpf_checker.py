@@ -29,28 +29,28 @@ class IOchecker:
 
     # reads the input CPF list file
     def input_file(self, path):
-        #with open(path, "r") as iFile:
-        #    return iFile
+        #with open(path, "r") as i_file:
+        #    return i_file
         try:
-            # with open(path, "r") as iFile:
-            #    return iFile
-            iFile = open(path, "r")
+            # with open(path, "r") as i_file:
+            #    return i_file
+            i_file = open(path, "r")
         except Exception as e:
             print(Messages.FAILED_OPEN_FILE + e)
         # finally:
-        #    iFile.close()
-        return iFile
+        #    i_file.close()
+        return i_file
 
     # writes to an external file the valid CPF's
     def output_file(self, path, content):
         try:
-            # with open(path, "w") as oFile:
-            #    return oFile
-            oFile = open(path, "w")
-            oFile.write(content)
+            # with open(path, "w") as o_file:
+            #    return o_file
+            o_file = open(path, "w")
+            o_file.write(content)
         except Exception as e:
             print(Messages.FAILED_OPEN_FILE + e)
-        return oFile
+        return o_file
 
 class FilterCPF:
     io_obj = IOchecker("")
@@ -63,10 +63,12 @@ class FilterCPF:
         return filtered_cpf
 
     def has_numbers_only(self, cpf):
-        if self.cpf_without_chars(cpf).isdigit(): return True
+        if self.cpf_without_chars(cpf).isdigit():
+            return True
 
     def has_eleven_digits(self, cpf):
-        if len(self.cpf_without_chars(cpf)) == 11: return True
+        if len(self.cpf_without_chars(cpf)) == 11:
+            return True
 
     def verify_first_digit(self, cpf):
         # result from the multiplication of each digit from cpf times the iterator + its product
@@ -111,7 +113,7 @@ class FilterCPF:
             else:
                 return False
 
-    def validateAlgorithm(self, cpf):
+    def validate_algorithm(self, cpf):
         if self.verify_first_digit(cpf) and self.verify_second_digit(cpf):
             print(Messages.VALID + str(cpf))
             self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
@@ -120,7 +122,7 @@ class FilterCPF:
 
     def main(self):
         for cpf in self.io_obj.input_file("cpf_list.txt"):
-            self.validateAlgorithm(cpf)
+            self.validate_algorithm(cpf)
 
 obj = FilterCPF()
 obj.main()
