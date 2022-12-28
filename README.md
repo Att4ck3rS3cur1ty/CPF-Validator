@@ -2,10 +2,13 @@
 Check whether CPFs are valid from a given input list
 
 ### A **Cute baby bot** to filter valid CPFs from a text file.
+
 - - -
+
 [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/Att4ck3rS3cur1ty/donate)
 [![Pylint](https://github.com/Att4ck3rS3cur1ty/CPF-Validator/actions/workflows/pylint.yml/badge.svg)](https://github.com/Att4ck3rS3cur1ty/CPF-Validator/actions/workflows/pylint.yml)
----
+
+- - -
 
 ## Requirements:
 - Python >= 3.0.0;
