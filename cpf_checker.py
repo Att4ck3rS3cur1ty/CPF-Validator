@@ -13,7 +13,7 @@ class bcolors:
         self.WARNING = ''
         self.FAIL = ''
         self.ENDC = ''
-    
+
 class Messages:
     VALID = bcolors.OKGREEN + "[+] Valid CPF: "
     INVALID = bcolors.FAIL + "[-] Invalid CPF: "
@@ -82,14 +82,11 @@ class FilterCPF:
                     sum_result = sum_result + (digit * counter)
 
             if sum_result % 11 < 2 and int(cpf_without_chars[9]) == 0:
-                # print(Messages.VALID + str(cpf_without_chars))
                 return True
             
             elif sum_result % 11 >= 2 and int(cpf_without_chars[9]) == (11 -(sum_result % 11)):
-                # print(Messages.VALID + str(cpf_without_chars))
                 return True
             else:
-                # print(Messages.INVALID + str(cpf_without_chars))
                 return False
             
     def verifySecondDigit(self, cpf):
