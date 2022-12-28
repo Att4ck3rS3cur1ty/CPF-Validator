@@ -13,11 +13,14 @@ class bcolors:
         self.WARNING = ''
         self.FAIL = ''
         self.ENDC = ''
-        
+    
 class Messages:
     VALID = bcolors.OKGREEN + "[+] Valid CPF: "
     INVALID = bcolors.FAIL + "[-] Invalid CPF: "
-    FAILED_OPEN_FILE = bcolors.FAIL + "[E] Error while handling the file! Check if you have the right permissions to write in disk or if the file exists: \n"
+    FAILED_OPEN_FILE = bcolors.FAIL + \
+        "[E] Error while handling the file! \
+        Check if you have the right permissions \
+        to write in disk or if the file exists: \n"
 
 class IOchecker:
     # initiates the variables
@@ -56,8 +59,7 @@ class FilterCPF:
         cpf = cpf.strip()
         filtered_cpf = ""
         for char in cpf:
-            filtered_cpf += filtered_cpf.join(char.replace(".", "").replace("-", "")) # criar lista mesmo?
-        # filtered_cpf = filtered_cpf.strip()
+            filtered_cpf += filtered_cpf.join(char.replace(".", "").replace("-", ""))
         return filtered_cpf
 
     def hasNumbersOnly(self, cpf):
@@ -65,7 +67,7 @@ class FilterCPF:
 
     def hasElevenDigits(self, cpf):
         if len(self.CPFWithoutChars(cpf)) == 11: return True
-        
+
     def verifyFirstDigit(self, cpf):
         # result from the multiplication of each digit from cpf times the iterator + its product
         sum_result = 0

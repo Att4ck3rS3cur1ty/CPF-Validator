@@ -5,6 +5,8 @@ Check whether CPFs are valid from a given input list
 - - -
 [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/Att4ck3rS3cur1ty/donate)
 
+---
+
 ## Requirements:
 - Python >= 3.0.0;
 - Write in disk permission.
