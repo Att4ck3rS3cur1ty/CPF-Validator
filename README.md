@@ -1,4 +1,4 @@
-# CPF-Validator
+# CPF Validator
 Checks whether CPFs are valid from a given input list
 
 ### A cute little bot to filter valid CPFs from a text file and save it in an output file.
