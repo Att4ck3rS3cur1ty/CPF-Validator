@@ -26,6 +26,24 @@ class Messages:
         Check if you have the right permissions \
         to write in disk or if the file exists: \n"
 
+class Statistics:
+    '''Calculates the statistics regarding the cpfs filtration'''
+    def __init__(self, valid_cpf = 0, invalid_cpf = 0):
+        self._valid_cpf = valid_cpf
+        self._invalid_cpf = invalid_cpf
+        
+    def get_amount_valid_cpf(self):
+        return self._valid_cpf
+    
+    def set_amount_valid_cpf(self):
+        self._valid_cpf += 1
+    
+    def get_amount_invalid_cpf(self):
+        return self._invalid_cpf
+    
+    def set_amount_invalid_cpf(self):
+        self._invalid_cpf += 1
+
 class IOchecker:
     '''Responsible for the IO logic'''
     def __init__(self, path):
@@ -59,6 +77,7 @@ class IOchecker:
 class FilterCPF:
     '''Call all the methods used to filter CPF'''
     io_obj = IOchecker("")
+    statistics_obj = Statistics()
     def cpf_without_chars(self, cpf):
         '''removes "." and "-" from the cpf'''
         cpf = cpf.strip()
@@ -126,8 +145,10 @@ class FilterCPF:
         '''call both 1st and 2st verification digits methods'''
         if self.verify_first_digit(cpf) and self.verify_second_digit(cpf):
             print(Messages.VALID + str(cpf))
+            self.statistics_obj.set_amount_valid_cpf()
             self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
         else:
+            self.statistics_obj.set_amount_invalid_cpf()
             print(Messages.INVALID + str(cpf))
 
     def main(self):
