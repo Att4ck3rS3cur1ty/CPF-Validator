@@ -1,5 +1,6 @@
-import sys
 '''Module to filter CPFs from a given input file'''
+import sys
+
 class BColors:
     '''Used to give colour to the output operation'''
     header = '\033[95m'
