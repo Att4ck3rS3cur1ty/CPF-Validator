@@ -63,7 +63,7 @@ class Statistics:
             print(Messages.AVERAGE + "100 %")
         else:
             average = self.get_amount_valid_cpf() / self.get_amount_invalid_cpf()
-            print(Messages.AVERAGE + str("{:.2f}".format(average)) + "%" + "\n")
+            print(Messages.AVERAGE + str(f'{average:.2f}') + "%" + "\n")
 
 class IOchecker:
     '''Responsible for the IO logic'''
@@ -180,7 +180,6 @@ class FilterCPF:
 
     def main(self):
         '''where everything begins'''
-        statistics_obj = Statistics()
         self.validate_algorithm("cpf_list.txt")
 
 obj = FilterCPF()
