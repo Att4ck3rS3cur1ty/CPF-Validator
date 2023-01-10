@@ -36,16 +36,20 @@ class Statistics:
         self._invalid_cpf = invalid_cpf
 
     def get_amount_valid_cpf(self):
+        '''Get method to return the amount of valid cpfs'''
         return self._valid_cpf
 
     def set_amount_valid_cpf(self):
+        '''Set method to store the amount of valid cpfs'''
         self._valid_cpf += 1
         return
 
     def get_amount_invalid_cpf(self):
+        '''Get method to return the amount of invalid cpfs'''
         return self._invalid_cpf
-    
+
     def set_amount_invalid_cpf(self):
+        '''Set method to store the amount of invalid cpfs'''
         self._invalid_cpf += 1
         return
 
