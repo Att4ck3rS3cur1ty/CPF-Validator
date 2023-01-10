@@ -25,35 +25,34 @@ class Messages:
         "[E] Error while handling the file! \
         Check if you have the right permissions \
         to write in disk or if the file exists: \n"
-    AMOUNT_VALID = BColors.endc + "Amount of valid CPFs: "
+    AMOUNT_VALID = BColors.endc + "\n" + "Amount of valid CPFs: "
     AMOUNT_INVALID = BColors.endc + "Amount of invalid CPFs: "
     AVERAGE = BColors.endc + "Average: "
 
 class Statistics:
-    '''Calculates the statistics regarding the cpfs filtration'''
+    '''Calculates the statistics regarding the CPFs filtration'''
     def __init__(self, valid_cpf = 0, invalid_cpf = 0):
         self._valid_cpf = valid_cpf
         self._invalid_cpf = invalid_cpf
 
     def get_amount_valid_cpf(self):
-        '''Get method to return the amount of valid cpfs'''
+        '''Get method to return the amount of valid CPFs'''
         return self._valid_cpf
 
     def set_amount_valid_cpf(self):
-        '''Set method to store the amount of valid cpfs'''
+        '''Set method to store the amount of valid CPFs'''
         self._valid_cpf += 1
-        return
 
     def get_amount_invalid_cpf(self):
-        '''Get method to return the amount of invalid cpfs'''
+        '''Get method to return the amount of invalid CPFs'''
         return self._invalid_cpf
 
     def set_amount_invalid_cpf(self):
-        '''Set method to store the amount of invalid cpfs'''
+        '''Set method to store the amount of invalid CPFs'''
         self._invalid_cpf += 1
-        return
 
     def average_filtered_cpf(self):
+        '''Calculates the average of valid CPFs versus invalid CPFs amount'''
         average = 0
         print(Messages.AMOUNT_VALID + str(self.get_amount_valid_cpf()))
         print(Messages.AMOUNT_INVALID + str(self.get_amount_invalid_cpf()))
@@ -79,7 +78,7 @@ class IOchecker:
             return i_file
         except Exception as exception:
             print(Messages.FAILED_OPEN_FILE + str(exception))
-            exit(1)
+            return False
 
     def output_file(self, path, content):
         '''writes valid CPF's to an external file'''
