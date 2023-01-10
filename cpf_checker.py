@@ -41,17 +41,17 @@ class Statistics:
         '''Get method to return the amount of valid CPFs'''
         return self._valid_cpf
 
-    def set_amount_valid_cpf(self):
+    def set_amount_valid_cpf(self, valid_cpf_counter):
         '''Set method to store the amount of valid CPFs'''
-        self._valid_cpf += 1
+        self._valid_cpf = valid_cpf_counter
 
     def get_amount_invalid_cpf(self):
         '''Get method to return the amount of invalid CPFs'''
         return self._invalid_cpf
 
-    def set_amount_invalid_cpf(self):
+    def set_amount_invalid_cpf(self, invalid_cpf_counter):
         '''Set method to store the amount of invalid CPFs'''
-        self._invalid_cpf += 1
+        self._invalid_cpf = invalid_cpf_counter
 
     def average_filtered_cpf(self):
         '''Calculates the average of valid CPFs versus invalid CPFs amount'''
@@ -63,7 +63,7 @@ class Statistics:
             print(Messages.AVERAGE + "100 %")
         else:
             average = self.get_amount_valid_cpf() / self.get_amount_invalid_cpf()
-            print(Messages.AVERAGE + str(average))
+            print(Messages.AVERAGE + str("{:.2f}".format(average)) + "%" + "\n")
 
 class IOchecker:
     '''Responsible for the IO logic'''
@@ -98,7 +98,7 @@ class IOchecker:
 class FilterCPF:
     '''Call all the methods used to filter CPF'''
     io_obj = IOchecker("")
-    statistics_obj = Statistics()
+    statistics_obj = Statistics(0,0)
     def cpf_without_chars(self, cpf):
         '''removes "." and "-" from the cpf'''
         cpf = cpf.strip()
@@ -162,22 +162,26 @@ class FilterCPF:
                 return True
         return False
 
-    def validate_algorithm(self, cpf):
+    def validate_algorithm(self, input_filename):
         '''call both 1st and 2st verification digits methods'''
-        if self.verify_first_digit(cpf) and self.verify_second_digit(cpf):
-            print(Messages.VALID + str(cpf))
-            self.statistics_obj.set_amount_valid_cpf()
-            self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
-        else:
-            self.statistics_obj.set_amount_invalid_cpf()
-            print(Messages.INVALID + str(cpf))
+        valid_cpf_counter = 0
+        invalid_cpf_counter = 0
+        for cpf in self.io_obj.input_file(input_filename):
+            if self.verify_first_digit(cpf) and self.verify_second_digit(cpf):
+                print(Messages.VALID + str(cpf))
+                valid_cpf_counter += 1
+                self.statistics_obj.set_amount_valid_cpf(valid_cpf_counter)
+                self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
+            else:
+                invalid_cpf_counter += 1
+                self.statistics_obj.set_amount_invalid_cpf(invalid_cpf_counter)
+                print(Messages.INVALID + str(cpf))
+        self.statistics_obj.average_filtered_cpf()
 
     def main(self):
         '''where everything begins'''
         statistics_obj = Statistics()
-        for cpf in self.io_obj.input_file("cpf_list.txt"):
-            self.validate_algorithm(cpf)
-        statistics_obj.average_filtered_cpf()
+        self.validate_algorithm("cpf_list.txt")
 
 obj = FilterCPF()
 obj.main()
