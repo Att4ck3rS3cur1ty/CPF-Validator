@@ -1,3 +1,4 @@
+import sys
 '''Module to filter CPFs from a given input file'''
 class BColors:
     '''Used to give colour to the output operation'''
@@ -78,7 +79,7 @@ class IOchecker:
             return i_file
         except Exception as exception:
             print(Messages.FAILED_OPEN_FILE + str(exception))
-            return False
+            return sys.exit(1)
 
     def output_file(self, path, content):
         '''writes valid CPF's to an external file'''
@@ -91,7 +92,7 @@ class IOchecker:
             return o_file
         except Exception as exception:
             print(Messages.FAILED_OPEN_FILE + str(exception))
-            exit(1)
+            return sys.exit(1)
 
 class FilterCPF:
     '''Call all the methods used to filter CPF'''
