@@ -25,24 +25,40 @@ class Messages:
         "[E] Error while handling the file! \
         Check if you have the right permissions \
         to write in disk or if the file exists: \n"
+    AMOUNT_VALID = BColors.endc + "Amount of valid CPFs: "
+    AMOUNT_INVALID = BColors.endc + "Amount of invalid CPFs: "
+    AVERAGE = BColors.endc + "Average: "
 
 class Statistics:
     '''Calculates the statistics regarding the cpfs filtration'''
     def __init__(self, valid_cpf = 0, invalid_cpf = 0):
         self._valid_cpf = valid_cpf
         self._invalid_cpf = invalid_cpf
-        
+
     def get_amount_valid_cpf(self):
         return self._valid_cpf
-    
+
     def set_amount_valid_cpf(self):
         self._valid_cpf += 1
-    
+        return
+
     def get_amount_invalid_cpf(self):
         return self._invalid_cpf
     
     def set_amount_invalid_cpf(self):
         self._invalid_cpf += 1
+        return
+
+    def average_filtered_cpf(self):
+        average = 0
+        print(Messages.AMOUNT_VALID + str(self.get_amount_valid_cpf()))
+        print(Messages.AMOUNT_INVALID + str(self.get_amount_invalid_cpf()))
+
+        if self.get_amount_invalid_cpf() == 0:
+            print(Messages.AVERAGE + "100 %")
+        else:
+            average = self.get_amount_valid_cpf() / self.get_amount_invalid_cpf()
+            print(Messages.AVERAGE + str(average))
 
 class IOchecker:
     '''Responsible for the IO logic'''
@@ -153,8 +169,10 @@ class FilterCPF:
 
     def main(self):
         '''where everything begins'''
+        statistics_obj = Statistics()
         for cpf in self.io_obj.input_file("cpf_list.txt"):
             self.validate_algorithm(cpf)
+        statistics_obj.average_filtered_cpf()
 
 obj = FilterCPF()
 obj.main()
