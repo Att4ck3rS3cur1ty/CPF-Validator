@@ -15,7 +15,7 @@ Checks whether CPFs are valid from a given input list
 - Write in disk permission.
 ## Instructions:
 - Use the input file "cpf_list.txt" to append the CPF's you want to validate;
-- Run the script: ```$ python3 cpf_checker.py ```
+- Run the script: ```$ python3 filter_cpf.py ```
 - The output containing the filtered CPF's will be automatically written as "output_valid_cpfs.txt".
 
 ## Disclaimer:
