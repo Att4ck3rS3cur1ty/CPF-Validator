@@ -1,5 +1,5 @@
 '''Module to calculate the statistics'''
-from messages_validation import *
+from messages_validation import Messages
 
 class Statistics:
     '''Calculates the statistics regarding the CPFs filtration'''

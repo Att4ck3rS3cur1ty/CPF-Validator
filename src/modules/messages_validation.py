@@ -1,3 +1,4 @@
+'''Module to handle the log messages'''
 from colors import ByteColors
 
 class Messages:

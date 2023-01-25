@@ -3,6 +3,7 @@ import sys
 from messages_validation import Messages
 
 class IOchecker:
+    '''Defines constructor and handles the input and output methods'''
     messages_validation = Messages()
     '''Responsible for the IO logic'''
     def __init__(self, path):

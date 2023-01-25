@@ -8,7 +8,7 @@ class FilterCPF:
     io_obj = IOchecker("")
     statistics_obj = Statistics(0,0)
     messages_validation = Messages()
-    
+
     def cpf_without_chars(self, cpf):
         '''removes "." and "-" from the cpf'''
         cpf = cpf.strip()
@@ -87,7 +87,7 @@ class FilterCPF:
                 self.statistics_obj.set_amount_invalid_cpf(invalid_cpf_counter)
                 print(Messages.INVALID + str(cpf))
         self.statistics_obj.average_filtered_cpf()
-    
+
     def main(self):
         '''where everything begins'''
         self.validate_algorithm("../../cpf_list.txt")
