@@ -1,104 +1,14 @@
 '''Module to filter CPFs from a given input file'''
-import sys
-
-class BColors:
-    '''Used to give colour to the output operation'''
-    header = '\033[95m'
-    ok_blue = '\033[94m'
-    ok_green = '\033[92m'
-    warning = '\033[93m'
-    fail = '\033[91m'
-    endc = '\033[0m'
-
-    def disable(self):
-        '''method used to disable the colors'''
-        self.header = ''
-        self.ok_blue = ''
-        self.ok_green = ''
-        self.warning = ''
-        self.fail = ''
-        self.endc = ''
-
-class Messages:
-    '''Messages used to log outputs'''
-    VALID = BColors.ok_green + "[+] Valid CPF: "
-    INVALID = BColors.fail + "[-] Invalid CPF: "
-    FAILED_OPEN_FILE = BColors.fail + \
-        "[E] Error while handling the file! \
-        Check if you have the right permissions \
-        to write in disk or if the file exists: \n"
-    AMOUNT_VALID = BColors.endc + "\n" + "Amount of valid CPFs: "
-    AMOUNT_INVALID = BColors.endc + "Amount of invalid CPFs: "
-    AVERAGE = BColors.endc + "Average: "
-
-class Statistics:
-    '''Calculates the statistics regarding the CPFs filtration'''
-    def __init__(self, valid_cpf = 0, invalid_cpf = 0):
-        self._valid_cpf = valid_cpf
-        self._invalid_cpf = invalid_cpf
-
-    def get_amount_valid_cpf(self):
-        '''Get method to return the amount of valid CPFs'''
-        return self._valid_cpf
-
-    def set_amount_valid_cpf(self, valid_cpf_counter):
-        '''Set method to store the amount of valid CPFs'''
-        self._valid_cpf = valid_cpf_counter
-
-    def get_amount_invalid_cpf(self):
-        '''Get method to return the amount of invalid CPFs'''
-        return self._invalid_cpf
-
-    def set_amount_invalid_cpf(self, invalid_cpf_counter):
-        '''Set method to store the amount of invalid CPFs'''
-        self._invalid_cpf = invalid_cpf_counter
-
-    def average_filtered_cpf(self):
-        '''Calculates the average of valid CPFs versus invalid CPFs amount'''
-        average = 0
-        print(Messages.AMOUNT_VALID + str(self.get_amount_valid_cpf()))
-        print(Messages.AMOUNT_INVALID + str(self.get_amount_invalid_cpf()))
-
-        if self.get_amount_invalid_cpf() == 0:
-            print(Messages.AVERAGE + "100 %")
-        else:
-            average = self.get_amount_valid_cpf() / self.get_amount_invalid_cpf()
-            print(Messages.AVERAGE + str(f'{average:.2f}') + "%" + "\n")
-
-class IOchecker:
-    '''Responsible for the IO logic'''
-    def __init__(self, path):
-        '''initiates the variables'''
-        self.path = path
-        self.first_write = True
-        self.mode = "w"
-
-    def input_file(self, path):
-        '''reads the input CPF list file'''
-        try:
-            i_file = open(path, mode="r", encoding="utf-8")
-            return i_file
-        except Exception as exception:
-            print(Messages.FAILED_OPEN_FILE + str(exception))
-            return sys.exit(1)
-
-    def output_file(self, path, content):
-        '''writes valid CPF's to an external file'''
-        try:
-            if not self.first_write:
-                self.mode = "a"
-            o_file = open(path, mode=self.mode, encoding="utf-8")
-            o_file.write(content)
-            self.first_write = False
-            return o_file
-        except Exception as exception:
-            print(Messages.FAILED_OPEN_FILE + str(exception))
-            return sys.exit(1)
+from in_out import IOchecker
+from messages_validation import Messages
+from statistics_ import Statistics
 
 class FilterCPF:
     '''Call all the methods used to filter CPF'''
     io_obj = IOchecker("")
     statistics_obj = Statistics(0,0)
+    messages_validation = Messages()
+    
     def cpf_without_chars(self, cpf):
         '''removes "." and "-" from the cpf'''
         cpf = cpf.strip()
@@ -171,16 +81,16 @@ class FilterCPF:
                 print(Messages.VALID + str(cpf))
                 valid_cpf_counter += 1
                 self.statistics_obj.set_amount_valid_cpf(valid_cpf_counter)
-                self.io_obj.output_file("output_valid_cpfs.txt", str(cpf))
+                self.io_obj.output_file("../../output_valid_cpfs.txt", str(cpf))
             else:
                 invalid_cpf_counter += 1
                 self.statistics_obj.set_amount_invalid_cpf(invalid_cpf_counter)
                 print(Messages.INVALID + str(cpf))
         self.statistics_obj.average_filtered_cpf()
-
+    
     def main(self):
         '''where everything begins'''
-        self.validate_algorithm("cpf_list.txt")
+        self.validate_algorithm("../../cpf_list.txt")
 
 obj = FilterCPF()
 obj.main()
