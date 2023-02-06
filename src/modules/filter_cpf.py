@@ -92,5 +92,6 @@ class FilterCPF:
         '''where everything begins'''
         self.validate_algorithm("../../cpf_list.txt")
 
-obj = FilterCPF()
-obj.main()
+if __name__ == 'main':
+    obj = FilterCPF()
+    obj.main()
